@@ -152,10 +152,33 @@ public class PlayerController : MonoBehaviour
     private void ShowVictoryScreen()
     {
         string playerName = PlayerPrefs.GetString("PlayerName", "Player");
-        resultText.text = $" Victory! \nPlayer: {playerName}\nCoin: {coin}";
+        string victoryMessage = $"Victory! \nPlayer: {playerName}\nCoin: {coin}";
+
+        resultText.text = victoryMessage;
         resultText.gameObject.SetActive(true);
 
-        Destroy(this.gameObject); 
+        SaveVictoryToFile(playerName, coin);  
+        Destroy(this.gameObject);
     }
+
+    private void SaveVictoryToFile(string playerName, int coin)
+    {
+        string filePath = Path.Combine(Application.persistentDataPath, "VictoryLog.txt");
+        string logEntry = $"{System.DateTime.Now}: \nPlayer: {playerName}, \nCoin: {coin}\n";
+
+        try
+        {
+            using (StreamWriter writer = new StreamWriter(filePath, true)) 
+            {
+                writer.WriteLine(logEntry);
+            }
+            Debug.Log($"Victory appended to {filePath}");
+        }
+        catch (IOException ex)
+        {
+            Debug.LogError($"Failed to write to file: {ex.Message}");
+        }
+    }
+
 
 }

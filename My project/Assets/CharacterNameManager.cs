@@ -2,6 +2,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.SceneManagement;
+using System.IO;
+
 public class CharacterNameManager : MonoBehaviour
 {
     public TMP_InputField nameInputField;
@@ -13,19 +15,24 @@ public class CharacterNameManager : MonoBehaviour
     public Button musicPauseButton;
     public Button musicStopButton;
 
-    public AudioSource audioSource; 
+    public Button viewHistoryButton;              
+    public TextMeshProUGUI historyText;           
+
+    public AudioSource audioSource;
 
     private void Start()
     {
         welcomeText.gameObject.SetActive(false);
-        playButton.gameObject.SetActive(false);
+        playButton.gameObject.SetActive(false); 
 
-        enterButton.onClick.AddListener(DisplayWelcomeMessage); 
+        enterButton.onClick.AddListener(DisplayWelcomeMessage);
         playButton.onClick.AddListener(LoadGameScene);
 
         musicPlayButton.onClick.AddListener(PlayMusic);
         musicPauseButton.onClick.AddListener(PauseMusic);
         musicStopButton.onClick.AddListener(StopMusic);
+
+        viewHistoryButton.onClick.AddListener(DisplayVictoryHistory);  
     }
 
     private void DisplayWelcomeMessage()
@@ -69,5 +76,22 @@ public class CharacterNameManager : MonoBehaviour
     private void StopMusic()
     {
         audioSource.Stop();
+    }
+
+    private void DisplayVictoryHistory()
+    {
+        string filePath = Path.Combine(Application.persistentDataPath, "VictoryLog.txt");
+
+        if (File.Exists(filePath))
+        {
+            string history = File.ReadAllText(filePath);
+            historyText.text = "Victory History:\n" + history;
+        }
+        else
+        {
+            historyText.text = "No victory history found.";
+        }
+
+        historyText.gameObject.SetActive(true);  
     }
 }
