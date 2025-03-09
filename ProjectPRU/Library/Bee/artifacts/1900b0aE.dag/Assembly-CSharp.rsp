@@ -423,9 +423,14 @@
 -analyzer:"D:/PRU212/6000.0.34f1/Editor/Data/Tools/Unity.SourceGenerators/Unity.Properties.SourceGenerator.dll"
 -analyzer:"D:/PRU212/6000.0.34f1/Editor/Data/Tools/Unity.SourceGenerators/Unity.SourceGenerators.dll"
 -analyzer:"D:/PRU212/6000.0.34f1/Editor/Data/Tools/Unity.SourceGenerators/Unity.UIToolkit.SourceGenerator.dll"
-"Assets/CauBeController.cs"
-"Assets/HoController.cs"
-"Assets/PVLevel1.cs"
+"Assets/Level1/PVLevel1.cs"
+"Assets/Level2/CauBeController.cs"
+"Assets/Level2/HoController.cs"
+"Assets/Level3/CaubeLevel3.cs"
+"Assets/Level3/HoLevel3.cs"
+"Assets/Level4/CanhSat.cs"
+"Assets/Level4/CauBeLevel4.cs"
+"Assets/Level5/QTCS.cs"
 -langversion:9.0
 /deterministic
 /optimize+
