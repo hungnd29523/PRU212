@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections;
 using static UnityEngine.GraphicsBuffer;
 using Unity.VisualScripting;
+using TMPro;
 
 public class HoController : MonoBehaviour
 {
@@ -15,6 +16,8 @@ public class HoController : MonoBehaviour
     public GameObject targetObject; // GameObject cần giảm order layer và đổi animation
     public AudioClip hobilua;
     private bool canMoveBackward = false;
+    public TextMeshProUGUI nup;
+    public TextMeshProUGUI nhay;
     void Start()
     {
         startPosition = transform.position; // Lưu vị trí ban đầu
@@ -34,7 +37,8 @@ public class HoController : MonoBehaviour
         {
             Debug.LogError(" AudioClip 'honoi' chưa được gán trong Inspector!");
         }
-
+        nhay.gameObject.SetActive(false);
+        nup.gameObject.SetActive(false);
         // Gọi Coroutine để thực hiện hành động
         StartCoroutine(DelayedAction());
     }
@@ -69,7 +73,7 @@ public class HoController : MonoBehaviour
     IEnumerator DelayedAction()
     {
         yield return new WaitForSeconds(13f);
-
+        nup.gameObject.SetActive(true);
         // Kiểm tra targetObject có Animator không
         if (targetObject != null)
         {
@@ -88,7 +92,8 @@ public class HoController : MonoBehaviour
 
         // Giảm y xuống 1 đơn vị
         transform.position += new Vector3(0, -1, 0);
-
+        nhay.gameObject.SetActive(true);
+        nup.gameObject.SetActive(false);
         // Giảm sortingOrder của targetObject nếu có SpriteRenderer
         if (targetObject != null)
         {
@@ -111,7 +116,7 @@ public class HoController : MonoBehaviour
         }
 
         yield return new WaitForSeconds(8f);
-
+        nhay.gameObject.SetActive(false);
         // Phát âm thanh nếu AudioClip và audioSource hợp lệ
         if (honoi != null && audioSource != null)
         {
